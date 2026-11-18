@@ -1,0 +1,1 @@
+Birthday surprise website for Tanvi. Open index.html with VS Code Live Server. No image files are required: the pet portraits and candle are inline SVG illustrations. The site loads Tailwind CSS, Google Fonts, and Tone.js from CDNs, so an internet connection is needed for those external assets.

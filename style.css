@@ -1,0 +1,101 @@
+/* Tactile Paper Grain & Custom Editorial Detailing */
+    body {
+      background-color: #FAF6F0;
+      color: #2A2927;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .paper-texture {
+      background-image: radial-gradient(rgba(197, 160, 89, 0.14) 1px, transparent 0),
+                        radial-gradient(rgba(92, 107, 87, 0.08) 1px, transparent 0);
+      background-size: 32px 32px;
+      background-position: 0 0, 16px 16px;
+    }
+
+    .editorial-border {
+      border: 1px solid rgba(197, 160, 89, 0.35);
+    }
+
+    .double-rule {
+      border-top: 2px solid #2A2927;
+      border-bottom: 1px solid #2A2927;
+      height: 5px;
+    }
+
+    /* Envelope Opening Transition */
+    #envelope-gate {
+      transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    #envelope-gate.opened {
+      opacity: 0;
+      transform: translateY(-30px) scale(1.02);
+      pointer-events: none;
+    }
+
+    /* Wax Seal Pulse & Tactile Hover */
+    .wax-seal {
+      background: radial-gradient(circle at 35% 35%, #D68E7A 0%, #C47D6A 55%, #9B5442 100%);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+    }
+    .wax-seal:hover {
+      transform: scale(1.06) rotate(-3deg);
+    }
+    .wax-seal:active {
+      transform: scale(0.96);
+    }
+
+    /* Card Flip / Reveal Styling */
+    .chapter-card {
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .chapter-card:hover {
+      transform: translateY(-4px);
+    }
+
+    /* Candle Flame Animation */
+    @keyframes flicker {
+      0%, 100% { transform: scale(1) rotate(-1deg); opacity: 0.95; }
+      25% { transform: scale(1.04, 0.96) rotate(1.5deg); opacity: 1; }
+      50% { transform: scale(0.97, 1.05) rotate(-1.5deg); opacity: 0.9; }
+      75% { transform: scale(1.02, 0.98) rotate(1deg); opacity: 0.98; }
+    }
+    .candle-flame {
+      transform-origin: bottom center;
+      animation: flicker 2.4s infinite ease-in-out;
+    }
+
+    /* Floating Sparkle & Star Animation */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .animate-float {
+      animation: floatSlow 5s ease-in-out infinite;
+    }
+
+    /* Scroll Reveal Utility */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FAF6F0;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #DFC48C;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #C5A059;
+    }

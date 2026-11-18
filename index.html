@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Tanvi — Chapter XXI | 27 December 2026</title>
+  
+  <!-- Google Fonts: Cormorant Garamond, Playfair Display, Plus Jakarta Sans & Pinyon Script -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Pinyon+Script&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Tone.js for subtle, optional gentle celebration chimes -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            parchment: '#FAF6F0',
+            parchmentDark: '#F2EBE0',
+            champagne: '#C5A059',
+            champagneLight: '#DFC48C',
+            sage: '#5C6B57',
+            sageLight: '#7A8B74',
+            terracotta: '#C47D6A',
+            terracottaDark: '#A86351',
+            espresso: '#2A2927',
+            inkMuted: '#5E5B56'
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            script: ['"Pinyon Script"', 'cursive']
+          },
+          boxShadow: {
+            'editorial': '0 12px 36px -8px rgba(42, 41, 39, 0.08), 0 4px 12px -4px rgba(42, 41, 39, 0.04)',
+            'wax': '0 10px 25px -5px rgba(168, 99, 81, 0.45), inset 0 2px 4px rgba(255,255,255,0.35)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="paper-texture antialiased selection:bg-champagne/30 selection:text-espresso">
+
+  <!-- Confetti & Sparkle Overlay Canvas -->
+  <canvas id="celebration-canvas" class="fixed inset-0 pointer-events-none z-50"></canvas>
+
+  <!-- Toast / Status Notification Banner (Replaces alert) -->
+  <div id="toast-banner" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-500 pointer-events-none">
+    <div class="bg-espresso text-parchment px-5 py-3.5 rounded-2xl shadow-editorial border border-champagne/40 flex items-center gap-3 max-w-sm">
+      <span class="text-champagne text-lg">✦</span>
+      <p id="toast-text" class="text-sm font-normal leading-snug"></p>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 1. PRIVATE KEEPSAKE ENVELOPE GATE                                     -->
+  <!-- ===================================================================== -->
+  <div id="envelope-gate" class="fixed inset-0 z-40 bg-parchment paper-texture flex items-center justify-center p-4 sm:p-6">
+    <div class="max-w-lg w-full bg-[#FFFDF9] rounded-3xl p-7 sm:p-11 shadow-editorial editorial-border text-center relative overflow-hidden">
+      
+      <!-- Decorative Corner Filigrees -->
+      <svg class="w-12 h-12 text-champagne/40 absolute top-4 left-4" viewBox="0 0 48 48" fill="none">
+        <path d="M4 24V8C4 5.79086 5.79086 4 8 4H24" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="11" cy="11" r="2" fill="currentColor"/>
+      </svg>
+      <svg class="w-12 h-12 text-champagne/40 absolute top-4 right-4 rotate-90" viewBox="0 0 48 48" fill="none">
+        <path d="M4 24V8C4 5.79086 5.79086 4 8 4H24" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="11" cy="11" r="2" fill="currentColor"/>
+      </svg>
+      <svg class="w-12 h-12 text-champagne/40 absolute bottom-4 left-4 -rotate-90" viewBox="0 0 48 48" fill="none">
+        <path d="M4 24V8C4 5.79086 5.79086 4 8 4H24" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="11" cy="11" r="2" fill="currentColor"/>
+      </svg>
+      <svg class="w-12 h-12 text-champagne/40 absolute bottom-4 right-4 rotate-180" viewBox="0 0 48 48" fill="none">
+        <path d="M4 24V8C4 5.79086 5.79086 4 8 4H24" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="11" cy="11" r="2" fill="currentColor"/>
+      </svg>
+
+      <!-- Postage Stamp SVG -->
+      <div class="inline-flex items-center justify-center mb-5">
+        <div class="px-3.5 py-1.5 rounded-full bg-parchmentDark border border-champagne/40 text-xs uppercase tracking-[0.2em] text-sage font-medium">
+          Private Edition • 27.12.2026
+        </div>
+      </div>
+
+      <p class="font-script text-3xl sm:text-4xl text-terracotta mb-1">A Private Keepsake</p>
+      <h1 class="font-serif text-4xl sm:text-5xl font-semibold text-espresso tracking-tight mb-3">
+        For Tanvi
+      </h1>
+      <p class="text-sm sm:text-base text-inkMuted max-w-sm mx-auto leading-relaxed mb-7">
+        Handcrafted with love by <span class="text-espresso font-medium">Prisha</span> to celebrate your 21st chapter. Break the wax seal below to enter.
+      </p>
+
+      <!-- Wax Seal Button -->
+      <div class="flex flex-col items-center justify-center mb-7">
+        <button id="open-seal-btn" type="button" aria-label="Break wax seal and open keepsake"
+          class="wax-seal w-24 h-24 rounded-full shadow-wax flex flex-col items-center justify-center text-[#FFFDF9] cursor-pointer focus:outline-none focus:ring-4 focus:ring-terracotta/30">
+          <span class="font-serif text-2xl font-semibold tracking-wider leading-none">XXI</span>
+          <span class="text-[10px] uppercase tracking-[0.18em] mt-1 opacity-90">Tap Seal</span>
+        </button>
+      </div>
+
+      <!-- Optional Passcode Unlock (Gentle & Non-blocking) -->
+      <div class="pt-5 border-t border-champagne/25">
+        <p class="text-xs text-inkMuted mb-2.5">Optional secret key (Hint: <span class="font-medium text-espresso">2712</span> or <span class="font-medium text-espresso">21</span>)</p>
+        <div class="flex items-center justify-center gap-2 max-w-xs mx-auto">
+          <input id="gate-passcode" type="text" inputmode="numeric" maxlength="6" placeholder="2712"
+            class="w-28 text-center px-3 py-2 rounded-xl bg-parchment border border-champagne/40 text-sm text-espresso focus:outline-none focus:border-champagne" />
+          <button id="unlock-passcode-btn" type="button"
+            class="px-4 py-2 rounded-xl bg-sage text-[#FFFDF9] text-xs uppercase tracking-wider font-medium hover:bg-sageLight transition cursor-pointer">
+            Open Keepsake
+          </button>
+        </div>
+        <p id="gate-hint-msg" class="text-xs text-terracotta mt-2 h-4"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MAIN KEEPSAKE EXPERIENCE                                              -->
+  <!-- ===================================================================== -->
+  <div id="main-content" class="min-h-screen flex flex-col">
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-30 bg-parchment/90 backdrop-blur-md border-b border-champagne/25">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <a href="#top" class="flex items-center gap-2.5 group">
+          <span class="w-8 h-8 rounded-full bg-espresso text-champagne font-serif font-semibold flex items-center justify-center text-sm group-hover:scale-105 transition">T</span>
+          <span class="font-serif text-lg sm:text-xl font-semibold tracking-tight text-espresso">Tanvi <span class="text-champagne font-normal italic">XXI</span></span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-7 text-xs uppercase tracking-[0.15em] text-inkMuted font-medium">
+          <a href="#letter" class="hover:text-espresso transition">Prisha's Letter</a>
+          <a href="#committee" class="hover:text-espresso transition">The Committee</a>
+          <a href="#chapter-21" class="hover:text-espresso transition">21 Notes</a>
+          <a href="#tanvi-times" class="hover:text-espresso transition">The Tanvi Times</a>
+          <a href="#wish-capsule" class="hover:text-espresso transition">Make a Wish</a>
+        </nav>
+
+        <button id="nav-celebrate-btn" type="button"
+          class="px-4 py-2 rounded-full bg-champagne/15 hover:bg-champagne/25 border border-champagne/50 text-espresso text-xs font-medium tracking-wide transition flex items-center gap-1.5 cursor-pointer">
+          <span>✦</span>
+          <span>Sparkle</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- =================================================================== -->
+    <!-- 2. CELEBRATORY HERO SECTION & LIVE IST COUNTDOWN                    -->
+    <!-- =================================================================== -->
+    <section id="top" class="relative pt-12 pb-20 sm:pt-20 sm:pb-28 px-4 sm:px-6 overflow-hidden">
+      <!-- Subtle Botanical / Celestial Decorative SVGs -->
+      <svg class="w-64 h-64 text-champagne/15 absolute -top-10 -right-12 pointer-events-none animate-float" viewBox="0 0 200 200" fill="none">
+        <circle cx="100" cy="100" r="85" stroke="currentColor" stroke-width="1" stroke-dasharray="4 6"/>
+        <circle cx="100" cy="100" r="60" stroke="currentColor" stroke-width="0.75"/>
+        <path d="M100 10L104 96L190 100L104 104L100 190L96 104L10 100L96 96L100 10Z" fill="currentColor" opacity="0.4"/>
+      </svg>
+
+      <div class="max-w-4xl mx-auto text-center relative z-10">
+        <!-- Editorial Issue Tag -->
+        <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-[#FFFDF9] editorial-border shadow-sm mb-6">
+          <span class="w-2 h-2 rounded-full bg-terracotta"></span>
+          <span class="text-xs uppercase tracking-[0.2em] text-inkMuted font-medium">27 December 2026 • Turning Twenty-One</span>
+          <span class="w-2 h-2 rounded-full bg-sage"></span>
+        </div>
+
+        <!-- Hero Headline -->
+        <p class="font-script text-3xl sm:text-5xl text-terracotta mb-2">Happy 21st Birthday, dearest</p>
+        <h1 class="font-serif text-5xl sm:text-7xl md:text-8xl font-semibold text-espresso tracking-tight leading-[1.02] mb-6">
+          Tanvi
+        </h1>
+
+        <p class="max-w-2xl mx-auto text-base sm:text-lg text-inkMuted leading-relaxed mb-10 font-light">
+          Twenty-one years of warmth, quiet grace, bright laughter, and unforgettable stories. 
+          Here is a little corner of the internet crafted exclusively for you—<span class="text-espresso font-medium italic font-serif text-xl">from Prisha, with love.</span>
+        </p>
+
+        <!-- Live Countdown Card to Dec 27, 2026 00:00:00 IST -->
+        <div class="max-w-2xl mx-auto bg-[#FFFDF9] rounded-3xl p-6 sm:p-8 shadow-editorial editorial-border mb-10">
+          <div class="flex items-center justify-center gap-2 mb-5">
+            <span class="h-px w-8 bg-champagne/50"></span>
+            <span id="countdown-label" class="text-xs uppercase tracking-[0.22em] text-sage font-semibold">
+              Countdown to 27 December 2026 (IST)
+            </span>
+            <span class="h-px w-8 bg-champagne/50"></span>
+          </div>
+
+          <div id="countdown-grid" class="grid grid-cols-4 gap-2.5 sm:gap-5">
+            <div class="bg-parchment rounded-2xl py-4 px-2 border border-champagne/25">
+              <div id="cd-days" class="font-serif text-3xl sm:text-5xl font-semibold text-espresso tabular-nums">--</div>
+              <div class="text-[11px] uppercase tracking-[0.16em] text-inkMuted mt-1">Days</div>
+            </div>
+            <div class="bg-parchment rounded-2xl py-4 px-2 border border-champagne/25">
+              <div id="cd-hours" class="font-serif text-3xl sm:text-5xl font-semibold text-espresso tabular-nums">--</div>
+              <div class="text-[11px] uppercase tracking-[0.16em] text-inkMuted mt-1">Hours</div>
+            </div>
+            <div class="bg-parchment rounded-2xl py-4 px-2 border border-champagne/25">
+              <div id="cd-minutes" class="font-serif text-3xl sm:text-5xl font-semibold text-espresso tabular-nums">--</div>
+              <div class="text-[11px] uppercase tracking-[0.16em] text-inkMuted mt-1">Minutes</div>
+            </div>
+            <div class="bg-parchment rounded-2xl py-4 px-2 border border-champagne/25">
+              <div id="cd-seconds" class="font-serif text-3xl sm:text-5xl font-semibold text-terracotta tabular-nums">--</div>
+              <div class="text-[11px] uppercase tracking-[0.16em] text-inkMuted mt-1">Seconds</div>
+            </div>
+          </div>
+
+          <p id="birthday-live-banner" class="hidden font-serif text-2xl sm:text-3xl text-terracotta italic mt-4">
+            ✨ Today is the day! Happy 21st Birthday, Tanvi! ✨
+          </p>
+        </div>
+
+        <!-- Hero Action Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button id="celebrate-now-btn" type="button"
+            class="w-full sm:w-auto px-8 py-4 rounded-full bg-espresso text-parchment hover:bg-espresso/90 shadow-editorial font-medium text-sm tracking-wide transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2.5 cursor-pointer">
+            <span class="text-champagne text-base">✦</span>
+            <span>Celebrate Now</span>
+          </button>
+          <a href="#letter"
+            class="w-full sm:w-auto px-8 py-4 rounded-full bg-[#FFFDF9] text-espresso hover:bg-parchmentDark editorial-border font-medium text-sm tracking-wide transition flex items-center justify-center gap-2">
+            <span>Read Prisha's Letter</span>
+            <span class="text-champagne">↓</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- 3. HEARTFELT PERSONAL BIRTHDAY LETTER FROM PRISHA                   -->
+    <!-- =================================================================== -->
+    <section id="letter" class="py-16 sm:py-24 px-4 sm:px-6 reveal-on-scroll">
+      <div class="max-w-3xl mx-auto">
+        <div class="bg-[#FFFDF9] rounded-3xl p-8 sm:p-14 md:p-16 shadow-editorial editorial-border relative">
+          
+          <!-- Vintage Stamp Top Right -->
+          <div class="hidden sm:flex flex-col items-center justify-center w-20 h-24 border-2 border-dashed border-champagne/60 rounded-xl p-2 absolute top-10 right-10 rotate-3 bg-parchment/60">
+            <span class="text-[9px] uppercase tracking-widest text-sage font-semibold">POSTAGE</span>
+            <span class="font-serif text-2xl font-bold text-terracotta my-0.5">21¢</span>
+            <span class="text-[8px] uppercase tracking-wider text-inkMuted">27 DEC '26</span>
+          </div>
+
+          <div class="mb-8">
+            <span class="text-xs uppercase tracking-[0.22em] text-sage font-semibold block mb-2">A Personal Note</span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-espresso">Dearest Tanvi,</h2>
+          </div>
+
+          <div class="space-y-5 text-base sm:text-[17px] text-espresso/90 leading-[1.85] font-light">
+            <p>
+              Happy 21st Birthday! Watching you step into twenty-one feels like turning the page to the richest, most radiant chapter of a book I already love reading. Over the years, I have watched you grow with a rare blend of kindness, quiet strength, and unmistakable warmth that makes everyone around you feel immediately at home.
+            </p>
+            <p>
+              Whether we are laughing over the smallest, most ridiculous things, talking for hours about life and everything in between, or simply sharing comfortable silence, having you in my life is one of the greatest gifts I could ever ask for. You notice the little details, you care wholeheartedly, and you bring light into ordinary days without even trying.
+            </p>
+            <p>
+              As you celebrate 27 December 2026—and officially enter your twenties in full bloom—I hope this year gives back to you every ounce of love and generosity you pour into the world. May your days be full of bold dreams, peaceful mornings, spontaneous adventures, and the joyful company of everyone who adores you (including our favorite little trio: Mithu, Dadu, and Tuffy).
+            </p>
+            <p>
+              No matter where life takes us next, please always remember how deeply cherished, admired, and celebrated you are—today and every single day after.
+            </p>
+          </div>
+
+          <!-- Signature Block -->
+          <div class="mt-10 pt-8 border-t border-champagne/30 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <p class="text-sm text-inkMuted italic font-serif text-lg mb-1">Forever cheering you on,</p>
+              <p class="font-script text-4xl sm:text-5xl text-terracotta">From Prisha, with love</p>
+            </div>
+            <div class="text-xs uppercase tracking-[0.18em] text-sage font-medium">
+              27 • XII • MMXXVI
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- 4. THE BIRTHDAY COMMITTEE (MITHU, DADU & TUFFY)                     -->
+    <!-- =================================================================== -->
+    <section id="committee" class="py-16 sm:py-24 px-4 sm:px-6 bg-parchmentDark/60 border-y border-champagne/25 reveal-on-scroll">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-xs uppercase tracking-[0.22em] text-terracotta font-semibold block mb-2">Official VIP Guests</span>
+          <h2 class="font-serif text-3xl sm:text-5xl font-semibold text-espresso mb-4">The Birthday Committee</h2>
+          <p class="text-sm sm:text-base text-inkMuted leading-relaxed">
+            No celebration for Tanvi would be complete without approval from the three most important critics in the house. Tap each portrait for their official birthday decree.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+          
+          <!-- MITHU (The Parrot) -->
+          <div class="pet-card bg-[#FFFDF9] rounded-3xl p-7 shadow-editorial editorial-border text-center flex flex-col justify-between transition hover:-translate-y-1 cursor-pointer"
+               data-pet="Mithu" data-quote="Squawk! Happy 21st Tanvi! More treats, more sunshine, and extra feathers ruffled in your honor today!">
+            <div>
+              <div class="w-28 h-28 mx-auto mb-5 rounded-full bg-sage/10 border border-sage/30 flex items-center justify-center p-3">
+                <!-- Bespoke SVG Illustration: Mithu the Parrot -->
+                <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Perch -->
+                  <path d="M22 98C45 94 75 94 98 98" stroke="#C5A059" stroke-width="4" stroke-linecap="round"/>
+                  <!-- Tail Feathers -->
+                  <path d="M46 78L36 108L50 86L48 112L58 84" fill="#5C6B57"/>
+                  <!-- Body -->
+                  <path d="M45 48C45 32 58 22 70 25C82 28 84 44 79 62C74 78 60 85 48 80C41 77 45 60 45 48Z" fill="#6E8565"/>
+                  <!-- Wing -->
+                  <path d="M54 46C64 43 74 52 70 68C66 76 54 75 50 66C47 58 49 48 54 46Z" fill="#5C6B57"/>
+                  <!-- Ringneck Collar -->
+                  <path d="M56 38C63 41 72 40 77 36" stroke="#C47D6A" stroke-width="3" stroke-linecap="round"/>
+                  <!-- Beak -->
+                  <path d="M77 28C86 27 91 33 86 39C83 41 79 38 77 35Z" fill="#C47D6A"/>
+                  <path d="M77 35C82 36 84 39 80 41C77 41 76 38 77 35Z" fill="#2A2927"/>
+                  <!-- Eye -->
+                  <circle cx="71" cy="30" r="3" fill="#FFFDF9"/>
+                  <circle cx="71.5" cy="30" r="1.6" fill="#2A2927"/>
+                  <!-- Party Hat -->
+                  <polygon points="62,23 72,22 65,9" fill="#C5A059"/>
+                  <circle cx="65" cy="8" r="2.5" fill="#C47D6A"/>
+                </svg>
+              </div>
+              <span class="inline-block px-3 py-1 rounded-full bg-sage/15 text-sage text-[11px] uppercase tracking-widest font-semibold mb-2">
+                Chief Vocalist
+              </span>
+              <h3 class="font-serif text-2xl font-semibold text-espresso mb-2">Mithu</h3>
+              <p class="text-sm text-inkMuted leading-relaxed mb-5">
+                Head of Morning Announcements, Feast Quality Control, and celebratory whistles whenever Tanvi walks into the room.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-champagne/20">
+              <span class="text-xs font-medium text-sage flex items-center justify-center gap-1.5">
+                <span>Tap to hear Mithu's wish</span>
+                <span>→</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- DADU (The Tortoise) -->
+          <div class="pet-card bg-[#FFFDF9] rounded-3xl p-7 shadow-editorial editorial-border text-center flex flex-col justify-between transition hover:-translate-y-1 cursor-pointer"
+               data-pet="Dadu" data-quote="Slow and steady wins the best decade yet. Wishing you 21 years of sunshine, crisp greens, and unhurried joy, Tanvi.">
+            <div>
+              <div class="w-28 h-28 mx-auto mb-5 rounded-full bg-champagne/15 border border-champagne/35 flex items-center justify-center p-3">
+                <!-- Bespoke SVG Illustration: Dadu the Tortoise -->
+                <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Ground Shadow -->
+                  <ellipse cx="60" cy="88" rx="38" ry="5" fill="#2A2927" opacity="0.08"/>
+                  <!-- Legs -->
+                  <rect x="36" y="70" width="10" height="15" rx="5" fill="#8C967E"/>
+                  <rect x="68" y="70" width="10" height="15" rx="5" fill="#8C967E"/>
+                  <!-- Tail -->
+                  <path d="M26 70L19 73L27 75" fill="#8C967E"/>
+                  <!-- Head & Neck -->
+                  <path d="M84 68C92 67 99 61 101 55C103 49 97 45 91 47C86 49 84 56 80 62" fill="#8C967E"/>
+                  <!-- Eye & Smile -->
+                  <circle cx="95" cy="51" r="2" fill="#2A2927"/>
+                  <path d="M95 56C97 57 99 56 100 55" stroke="#2A2927" stroke-width="1.3" stroke-linecap="round"/>
+                  <!-- Dome Shell -->
+                  <path d="M26 72C26 48 42 36 58 36C74 36 88 48 88 72H26Z" fill="#5C6B57"/>
+                  <!-- Shell Rim -->
+                  <rect x="23" y="69" width="68" height="6" rx="3" fill="#C5A059"/>
+                  <!-- Shell Geometric Pattern -->
+                  <polygon points="58,41 68,49 64,61 52,61 48,49" stroke="#DFC48C" stroke-width="1.8" fill="none"/>
+                  <path d="M58 41V36M68 49L79 46M64 61L73 69M52 61L43 69M48 49L37 46" stroke="#DFC48C" stroke-width="1.5"/>
+                  <!-- Tiny Crown on Shell -->
+                  <path d="M51 35L53 27L58 32L63 27L65 35H51Z" fill="#C47D6A"/>
+                </svg>
+              </div>
+              <span class="inline-block px-3 py-1 rounded-full bg-champagne/20 text-espresso text-[11px] uppercase tracking-widest font-semibold mb-2">
+                Keeper of Wisdom
+              </span>
+              <h3 class="font-serif text-2xl font-semibold text-espresso mb-2">Dadu</h3>
+              <p class="text-sm text-inkMuted leading-relaxed mb-5">
+                Senior Philosopher & Sunbathing Strategist, reminding Tanvi to savor every single moment of twenty-one at her own pace.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-champagne/20">
+              <span class="text-xs font-medium text-espresso flex items-center justify-center gap-1.5">
+                <span>Tap to hear Dadu's wish</span>
+                <span>→</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- TUFFY (The Beloved Pup) -->
+          <div class="pet-card bg-[#FFFDF9] rounded-3xl p-7 shadow-editorial editorial-border text-center flex flex-col justify-between transition hover:-translate-y-1 cursor-pointer"
+               data-pet="Tuffy" data-quote="Woof! *Tail wagging at maximum speed* Happy 21st Birthday to my favorite human, Tanvi! Let's celebrate with endless cuddles!">
+            <div>
+              <div class="w-28 h-28 mx-auto mb-5 rounded-full bg-terracotta/12 border border-terracotta/30 flex items-center justify-center p-3">
+                <!-- Bespoke SVG Illustration: Tuffy -->
+                <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Floppy Ears -->
+                  <path d="M38 42C27 44 23 58 28 69C31 74 37 71 39 63" fill="#A86351"/>
+                  <path d="M82 42C93 44 97 58 92 69C89 74 83 71 81 63" fill="#A86351"/>
+                  <!-- Body / Chest -->
+                  <path d="M40 76C40 66 49 62 60 62C71 62 80 66 80 76L84 95H36L40 76Z" fill="#D8A47F"/>
+                  <!-- Collar & Tag -->
+                  <path d="M44 68Q60 73 76 68" stroke="#5C6B57" stroke-width="4" stroke-linecap="round"/>
+                  <circle cx="60" cy="74" r="3.5" fill="#C5A059"/>
+                  <!-- Head -->
+                  <rect x="37" y="30" width="46" height="40" rx="20" fill="#E3B592"/>
+                  <!-- Muzzle -->
+                  <ellipse cx="60" cy="57" rx="13" ry="10" fill="#FAF6F0"/>
+                  <!-- Nose -->
+                  <ellipse cx="60" cy="53" rx="5" ry="3.5" fill="#2A2927"/>
+                  <!-- Happy Tongue -->
+                  <path d="M57 62C57 66 63 66 63 62" fill="#C47D6A"/>
+                  <!-- Eyes -->
+                  <circle cx="49" cy="46" r="2.8" fill="#2A2927"/>
+                  <circle cx="71" cy="46" r="2.8" fill="#2A2927"/>
+                  <circle cx="50" cy="45" r="0.9" fill="#FFF"/>
+                  <circle cx="72" cy="45" r="0.9" fill="#FFF"/>
+                  <!-- Festive Bow / Party Hat -->
+                  <polygon points="52,31 68,31 60,15" fill="#C47D6A"/>
+                  <circle cx="60" cy="14" r="2.8" fill="#C5A059"/>
+                </svg>
+              </div>
+              <span class="inline-block px-3 py-1 rounded-full bg-terracotta/15 text-terracottaDark text-[11px] uppercase tracking-widest font-semibold mb-2">
+                Director of Joy
+              </span>
+              <h3 class="font-serif text-2xl font-semibold text-espresso mb-2">Tuffy</h3>
+              <p class="text-sm text-inkMuted leading-relaxed mb-5">
+                Executive Officer of Tail Wags, Unconditional Loyalty, and making sure Tanvi's 21st birthday starts with maximum enthusiasm.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-champagne/20">
+              <span class="text-xs font-medium text-terracottaDark flex items-center justify-center gap-1.5">
+                <span>Tap to hear Tuffy's wish</span>
+                <span>→</span>
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Interactive Pet Decree Speech Box -->
+        <div id="pet-quote-box" class="mt-8 max-w-2xl mx-auto bg-[#FFFDF9] rounded-2xl p-6 editorial-border shadow-sm text-center hidden">
+          <p id="pet-quote-speaker" class="text-xs uppercase tracking-[0.2em] text-terracotta font-semibold mb-1.5"></p>
+          <p id="pet-quote-text" class="font-serif text-xl sm:text-2xl italic text-espresso"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- 5. CHAPTER 21: INTERACTIVE NOTES & MILESTONES GRID                  -->
+    <!-- =================================================================== -->
+    <section id="chapter-21" class="py-16 sm:py-24 px-4 sm:px-6 reveal-on-scroll">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <span class="text-xs uppercase tracking-[0.22em] text-sage font-semibold block mb-2">Interactive Keepsake Cards</span>
+            <h2 class="font-serif text-3xl sm:text-5xl font-semibold text-espresso">21 Reasons We Adore You</h2>
+          </div>
+          <div class="flex items-center gap-3">
+            <span id="revealed-counter" class="text-xs uppercase tracking-widest text-inkMuted bg-[#FFFDF9] px-4 py-2 rounded-full editorial-border">
+              0 / 21 Opened
+            </span>
+            <button id="reveal-all-cards-btn" type="button"
+              class="text-xs uppercase tracking-wider px-4 py-2 rounded-full bg-sage text-[#FFFDF9] hover:bg-sageLight transition cursor-pointer">
+              Reveal All
+            </button>
+          </div>
+        </div>
+
+        <!-- 21 Interactive Cards Grid -->
+        <div id="cards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          <!-- Populated dynamically via JS for crisp interactivity -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- 6. "THE TANVI TIMES: 21ST EDITION" MINI CROSSWORD PUZZLE            -->
+    <!-- =================================================================== -->
+    <section id="tanvi-times" class="py-16 sm:py-24 px-4 sm:px-6 bg-parchmentDark/70 border-y border-champagne/30 reveal-on-scroll">
+      <div class="max-w-5xl mx-auto">
+        <!-- Newspaper Masthead -->
+        <div class="bg-[#FFFDF9] rounded-3xl p-6 sm:p-10 md:p-12 shadow-editorial editorial-border">
+          <div class="text-center pb-6 mb-8 border-b border-espresso/20">
+            <div class="flex items-center justify-between text-[10px] sm:text-xs uppercase tracking-[0.2em] text-inkMuted mb-3">
+              <span>Vol. XXI • No. 27</span>
+              <span>Special Birthday Issue</span>
+              <span>27 Dec 2026</span>
+            </div>
+            <h2 class="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-espresso mb-2">
+              The Tanvi Times
+            </h2>
+            <div class="double-rule my-3"></div>
+            <p class="font-serif italic text-base sm:text-lg text-inkMuted">
+              The 21st Edition Keepsake Mini Crossword — Curated by Prisha
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Crossword Grid Area -->
+            <div class="lg:col-span-6 flex flex-col items-center">
+              <div id="crossword-board" class="grid grid-cols-7 gap-1 sm:gap-1.5 bg-espresso p-2 sm:p-2.5 rounded-2xl shadow-inner w-full max-w-[340px] aspect-square">
+                <!-- 7x7 Grid Rendered by JS -->
+              </div>
+
+              <!-- Puzzle Controls -->
+              <div class="flex flex-wrap items-center justify-center gap-2.5 mt-6">
+                <button id="cw-check-btn" type="button"
+                  class="px-4 py-2 rounded-xl bg-espresso text-parchment text-xs uppercase tracking-wider font-medium hover:bg-espresso/90 transition cursor-pointer">
+                  Check Answers
+                </button>
+                <button id="cw-hint-btn" type="button"
+                  class="px-4 py-2 rounded-xl bg-champagne/20 text-espresso border border-champagne/50 text-xs uppercase tracking-wider font-medium hover:bg-champagne/30 transition cursor-pointer">
+                  Reveal Letter
+                </button>
+                <button id="cw-reset-btn" type="button"
+                  class="px-4 py-2 rounded-xl bg-parchment text-inkMuted border border-champagne/30 text-xs uppercase tracking-wider font-medium hover:text-espresso transition cursor-pointer">
+                  Clear
+                </button>
+              </div>
+              <p id="cw-status" class="text-xs text-center text-sage font-medium mt-3 min-h-[1.25rem]"></p>
+            </div>
+
+            <!-- Clues Column -->
+            <div class="lg:col-span-6 space-y-6">
+              <div class="bg-parchment rounded-2xl p-5 border border-champagne/30">
+                <h3 class="font-serif text-xl font-semibold text-espresso border-b border-champagne/30 pb-2 mb-3">
+                  Across
+                </h3>
+                <ul class="space-y-2.5 text-sm text-espresso/90">
+                  <li class="clue-item cursor-pointer hover:text-terracotta transition" data-word="TANVI">
+                    <span class="font-semibold text-terracotta mr-1.5">1.</span> Our luminous birthday girl turning 21 today (5)
+                  </li>
+                  <li class="clue-item cursor-pointer hover:text-terracotta transition" data-word="DADU">
+                    <span class="font-semibold text-terracotta mr-1.5">4.</span> The wise, unhurried tortoise on the Birthday Committee (4)
+                  </li>
+                  <li class="clue-item cursor-pointer hover:text-terracotta transition" data-word="MITHU">
+                    <span class="font-semibold text-terracotta mr-1.5">5.</span> The chatty green parrot who announces every celebration (5)
+                  </li>
+                </ul>
+              </div>
+
+              <div class="bg-parchment rounded-2xl p-5 border border-champagne/30">
+                <h3 class="font-serif text-xl font-semibold text-espresso border-b border-champagne/30 pb-2 mb-3">
+                  Down
+                </h3>
+                <ul class="space-y-2.5 text-sm text-espresso/90">
+                  <li class="clue-item cursor-pointer hover:text-terracotta transition" data-word="TUFFY">
+                    <span class="font-semibold text-sage mr-1.5">1.</span> Tail-wagging pup who adores Tanvi endlessly (5)
+                  </li>
+                  <li class="clue-item cursor-pointer hover:text-terracotta transition" data-word="PRISHA">
+                    <span class="font-semibold text-sage mr-1.5">2.</span> Sender of this keepsake who loves you dearly (6)
+                  </li>
+                  <li class="clue-item cursor-pointer hover:text-terracotta transition" data-word="DEC">
+                    <span class="font-semibold text-sage mr-1.5">3.</span> Winter birthday month of the 27th (3)
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- 7. MAKE A WISH: INTERACTIVE CANDLE & STAR TIME CAPSULE              -->
+    <!-- =================================================================== -->
+    <section id="wish-capsule" class="py-16 sm:py-24 px-4 sm:px-6 reveal-on-scroll">
+      <div class="max-w-3xl mx-auto text-center">
+        <span class="text-xs uppercase tracking-[0.22em] text-terracotta font-semibold block mb-2">Chapter 21 Ritual</span>
+        <h2 class="font-serif text-3xl sm:text-5xl font-semibold text-espresso mb-4">Make Your 21st Wish</h2>
+        <p class="text-sm sm:text-base text-inkMuted max-w-xl mx-auto leading-relaxed mb-10">
+          Write down a private wish, dream, or intention for your 21st year, then blow out the golden candle to seal it into your personal star capsule.
+        </p>
+
+        <div class="bg-[#FFFDF9] rounded-3xl p-8 sm:p-12 shadow-editorial editorial-border relative overflow-hidden">
+          
+          <!-- Interactive Birthday Candle SVG -->
+          <div class="flex flex-col items-center justify-center mb-6">
+            <div id="candle-container" class="relative w-24 h-36 flex items-end justify-center cursor-pointer" title="Tap candle to blow out or relight">
+              <svg viewBox="0 0 100 150" class="w-full h-full overflow-visible">
+                <!-- Glow Halo -->
+                <circle id="flame-glow" cx="50" cy="36" r="26" fill="url(#glowGrad)" class="transition-opacity duration-700"/>
+                <defs>
+                  <radialGradient id="glowGrad">
+                    <stop offset="0%" stop-color="#C5A059" stop-opacity="0.45"/>
+                    <stop offset="100%" stop-color="#C5A059" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+
+                <!-- Flame -->
+                <g id="candle-flame-group" class="candle-flame transition-opacity duration-500">
+                  <path d="M50 14C50 14 63 30 63 40C63 47.1797 57.1797 53 50 53C42.8203 53 37 47.1797 37 40C37 30 50 14 50 14Z" fill="#C5A059"/>
+                  <path d="M50 23C50 23 57 33 57 40C57 43.866 53.866 47 50 47C46.134 47 43 43.866 43 40C43 33 50 23 50 23Z" fill="#FFFDF9"/>
+                </g>
+
+                <!-- Smoke Wisps (Shown when blown out) -->
+                <g id="candle-smoke" class="opacity-0 transition-opacity duration-700">
+                  <path d="M50 52C46 44 55 38 49 28" stroke="#A39E96" stroke-width="2" stroke-linecap="round" fill="none"/>
+                </g>
+
+                <!-- Wick -->
+                <rect x="48.5" y="51" width="3" height="8" rx="1.5" fill="#2A2927"/>
+
+                <!-- Taper Candle Body -->
+                <rect x="38" y="59" width="24" height="72" rx="6" fill="#FAF6F0" stroke="#DFC48C" stroke-width="1.5"/>
+                <!-- Gold Stripe Detailing -->
+                <path d="M38 74L62 82M38 94L62 102M38 114L62 122" stroke="#C5A059" stroke-width="2" opacity="0.6"/>
+                <!-- Holder -->
+                <ellipse cx="50" cy="133" rx="26" ry="5" fill="#C5A059"/>
+              </svg>
+            </div>
+            <span id="candle-hint" class="text-xs text-inkMuted italic mt-1">Candle is lit — ready for your wish</span>
+          </div>
+
+          <!-- Wish Input Form -->
+          <div id="wish-form-area" class="max-w-lg mx-auto space-y-4">
+            <textarea id="wish-input" rows="3" placeholder="Dear 21, this year I wish for..."
+              class="w-full rounded-2xl bg-parchment border border-champagne/40 p-4 text-sm sm:text-base text-espresso placeholder:text-inkMuted/60 focus:outline-none focus:border-champagne resize-none"></textarea>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <button id="blow-wish-btn" type="button"
+                class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-terracotta hover:bg-terracottaDark text-[#FFFDF9] font-medium text-sm tracking-wide shadow-sm transition cursor-pointer flex items-center justify-center gap-2">
+                <span>✦</span>
+                <span>Blow Candle & Seal Wish</span>
+              </button>
+              <button id="relight-candle-btn" type="button"
+                class="hidden w-full sm:w-auto px-5 py-3.5 rounded-full bg-parchment hover:bg-parchmentDark text-espresso border border-champagne/40 text-xs uppercase tracking-wider font-medium transition cursor-pointer">
+                Relight Candle
+              </button>
+            </div>
+          </div>
+
+          <!-- Sealed Star Capsule Display -->
+          <div id="sealed-wishes-container" class="mt-8 pt-6 border-t border-champagne/25 hidden text-left">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs uppercase tracking-[0.2em] text-sage font-semibold">Your Sealed Chapter 21 Stars</span>
+              <span class="text-xs text-inkMuted">Saved privately on this device</span>
+            </div>
+            <div id="sealed-wishes-list" class="space-y-3">
+              <!-- Sealed wishes appear here -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- FOOTER                                                              -->
+    <!-- =================================================================== -->
+    <footer class="mt-auto py-12 px-4 sm:px-6 border-t border-champagne/25 bg-[#FFFDF9] text-center">
+      <div class="max-w-2xl mx-auto">
+        <p class="font-script text-3xl text-terracotta mb-2">Happy 21st Birthday, Tanvi</p>
+        <p class="text-xs uppercase tracking-[0.22em] text-inkMuted mb-4">
+          27 December 2026 • Made exclusively for you by Prisha
+        </p>
+        <p class="text-xs text-inkMuted/80">
+          Approved by Mithu, Dadu & Tuffy ✦ Private Keepsake Edition
+        </p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- INTERACTIVE SCRIPT -->
+  <script src="script.js"></script>
+</body>
+</html>
